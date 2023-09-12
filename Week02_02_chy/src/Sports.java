@@ -1,4 +1,4 @@
-public class aSports {
+public class Sports {
     String getName(){return "아직 결정되지 않음";}
     int getPlayers(){return 0;}
 }
@@ -6,7 +6,9 @@ public class aSports {
 class Soccer extends Sports{
 
 //경기 이름 : 축구, 경기자수 : 11
+    @Override
     String getName(){return "축구";}
+    @Override
     int getPlayers(){return 11;}
 }
 
