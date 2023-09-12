@@ -4,12 +4,18 @@ interface Animal {
     void sing();
 }
 
-class bird{
-
-}
-
-public class AnimalTest{
-    public static void main(String[] args) {
-        System.out.println("Hello world!");
+class Bird implements Animal{
+    @Override
+    public void walk(){
+        System.out.println("걸을 수 있음");
+    }
+    @Override
+    public void fly(){
+        System.out.println("날을 수 있음");
+    }
+    @Override
+    public void sing(){
+        System.out.println("노래 부를 수 있음");
     }
 }
+
