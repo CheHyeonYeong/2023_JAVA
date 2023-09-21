@@ -9,20 +9,21 @@ public class Week03_01  extends JFrame{
         JFrame f = new JFrame("Login");
         f.add(panel);
 
-        //여기에 엔터를 넣고 싶어ㅜㅜㅜ 흐어엉
+        //하고 싶은 것: 회원 등록하기를 최 상단에 넣고 싶음.
+        //정렬을 하고 싶다! -> 나중에 다시 리코딩 해보자
 
         panel.add(new JLabel("                                                                    회원 등록하기                                                                      "));
-        JLabel label1 = new JLabel("�씠由�");
-        JTextField field1 = new JTextField(15);
-        JLabel label2 = new JLabel("�뙣�뒪�썙�뱶");
-        JTextField field2 = new JTextField(15);
-        JLabel label3 = new JLabel("�씠硫붿씪 二쇱냼");
-        JTextField field3 = new JTextField(15);
-        JLabel label4 = new JLabel("�쟾�솕踰덊샇");
-        JTextField field4 = new JTextField(15);
+        JLabel label1 = new JLabel("이름");
+        JTextField field1 = new JTextField(20);
+        JLabel label2 = new JLabel("패스워드");
+        JPasswordField field2 = new JPasswordField(20);
+        JLabel label3 = new JLabel("이메일 주소");
+        JTextField field3 = new JTextField(20);
+        JLabel label4 = new JLabel("전화번호");
+        JTextField field4 = new JTextField(20);
 
-        JButton btn1 = new JButton("�벑濡앺븯湲�");
-        JButton btn2 = new JButton("痍⑥냼");
+        JButton btn1 = new JButton("회원가입");
+        JButton btn2 = new JButton("취소");
 
         panel.add(label1);
         panel.add(field1);

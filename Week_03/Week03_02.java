@@ -18,15 +18,11 @@ public class Week03_02 extends JFrame {
         //여기에서는 라벨(마일을 입력하시오) -> 텍스트 필드 -> 라벨-> 버튼
 
         JLabel mile = new JLabel("Plz enter the Mile");
-        JTextField Emile = new JTextField();
-        //textfield 너무 작아ㅠㅠ 이건 몰까..
-        Emile.setPreferredSize(new Dimension(100, 30));
-
+        JTextField Emile = new JTextField(15);
 
         JLabel km = new JLabel("");//km변환 값
         JButton change = new JButton("Change");
 
-        p.setLayout(new FlowLayout());
         //4. 추가하기
         p.add(mile);
         p.add(Emile);

@@ -26,27 +26,23 @@ public class Week03_03 extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
-        //Set Loction
         JPanel panel = new JPanel();
         add(panel);
 
 
-
-        // Load the car image
         ImageIcon icon = new ImageIcon("Week_03/5899542.png");
         btn.setIcon(icon);
 
 
         panel.setLayout(null);
         btn.setLocation(50,50);
-        btn.setSize(100,100);
-
-
+        btn.setSize(100,100); //사진이 크롭되는 것이 아쉽다.
+        
         btnLeft.setSize(80, 30);
         btnRight.setSize(80, 30);
 
         btnLeft.setLocation(100,200);
-        btnRight.setLocation(210,200);
+        btnRight.setLocation(210,200); //한 번 location, size 해줬으면 다른 것들도 해줘야함
 
         panel.add(btn);
         panel.requestFocus();
