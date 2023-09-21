@@ -1,17 +1,17 @@
 package Week_03;
 
 import javax.swing.*;
+import java.awt.*;
+
 public class Week03_01  extends JFrame{
     public Week03_01() {
         JPanel panel = new JPanel();
         JFrame f = new JFrame("Login");
         f.add(panel);
 
-        JLabel title = new JLabel("회원 등록하기");
-        //여기에 엔터를 넣고 싶어
+        //여기에 엔터를 넣고 싶어ㅜㅜㅜ 흐어엉
 
-        panel.add(title);
-
+        panel.add(new JLabel("                                                                    회원 등록하기                                                                      "));
         JLabel label1 = new JLabel("�씠由�");
         JTextField field1 = new JTextField(15);
         JLabel label2 = new JLabel("�뙣�뒪�썙�뱶");

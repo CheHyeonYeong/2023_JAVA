@@ -3,61 +3,80 @@ package Week_03;
 import com.sun.tools.javac.Main;
 
 import javax.swing.*;
+import javax.swing.plaf.basic.BasicOptionPaneUI;
+import javax.swing.plaf.basic.BasicOptionPaneUI.ButtonActionListener;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 //버튼으로 움직이는 자동차 표시 프로그램 만들어보기
 //left 버튼 -> 왼 쪽
 //right -> 오른 쪽
 public class Week03_03 extends JFrame {
-    private JButton btnLeft = new JButton("Left");
-    private JButton btnRight = new JButton("Right");
+    JButton btnLeft = new JButton("Left");
+    JButton btnRight = new JButton("Right");
+    JButton btn = new JButton("");
+    int x=50,y=50;
     private Image img;
     private int carX =100;
     public Week03_03(){
+
         setTitle("Car Moving");
         setSize(400, 300);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
+        //Set Loction
+        JPanel panel = new JPanel();
+        add(panel);
+
+
+
         // Load the car image
-        ImageIcon icon = new ImageIcon("C:/Users/hyeonyeong/Downloads/5899542.png");
-        img = icon.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+        ImageIcon icon = new ImageIcon("Week_03/5899542.png");
+        btn.setIcon(icon);
 
-        // Create a custom JPanel to draw the car image
-        JPanel carPanel = new JPanel() {
+
+        panel.setLayout(null);
+        btn.setLocation(50,50);
+        btn.setSize(100,100);
+
+
+        btnLeft.setSize(80, 30);
+        btnRight.setSize(80, 30);
+
+        btnLeft.setLocation(100,200);
+        btnRight.setLocation(210,200);
+
+        panel.add(btn);
+        panel.requestFocus();
+        panel.setFocusable(true);
+
+        panel.add(btnLeft);
+        panel.add(btnRight);
+
+
+        btnLeft.addActionListener(new ActionListener() {
             @Override
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                g.drawImage(img, 0, 0, null);
+            public void actionPerformed(ActionEvent e) {
+                moveCar(-10);  // Move car to the left by 10 pixels
             }
-        };
-        // Set up the panel with the car image
-        carPanel.setPreferredSize(new Dimension(100, 100));
+        });
 
-        // Add action listeners for the buttons to move the car left and right
-        btnLeft.addActionListener(e -> moveCar(-10));
-        btnRight.addActionListener(e -> moveCar(10));
+        btnRight.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                moveCar(10);  // Move car to the right by 10 pixels
+            }
+        });
 
-        // Create a panel to hold the buttons
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.add(btnLeft);
-        buttonPanel.add(btnRight);
-
-        // Add components to the main frame
-        add(carPanel, BorderLayout.CENTER);
-        add(buttonPanel, BorderLayout.SOUTH);
 
         setVisible(true);
 
-
     }
     private void moveCar(int deltaX) {
-        // Update the x-coordinate of the car
-        //안움직여~!~!!~!!
-        carX += deltaX;
-
-        // Repaint the panel to update the car's position
-        repaint();
+        x+=deltaX;
+        btn.setLocation(x,50);
     }
 
     public static void main(String[] args) {
