@@ -122,7 +122,7 @@ public class MyFrame extends JFrame{
 
 1. add
 2. remove
-3. setBackground 
+3. setBackground
 
 # 배치 관리자
 
@@ -231,19 +231,19 @@ public class MyFrame extends JFrame{
 - 레이블 : 텍스트를 표시할 수 있는 공간
     - 편집 불가한 텍스트 표시
     - 레이블의 폰트 변경하기
-        
-        ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/65d47488-3ffd-440e-b655-cb7516b09d13/cf3669e2-669f-46a9-bfb1-7e3eff4bb050/Untitled.png)
-        
+
+      ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/65d47488-3ffd-440e-b655-cb7516b09d13/cf3669e2-669f-46a9-bfb1-7e3eff4bb050/Untitled.png)
+
     - 레이블에 이미지 표시하기
-        
-        ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/65d47488-3ffd-440e-b655-cb7516b09d13/09e443be-c8fe-42b6-ae88-c99a00d6450a/Untitled.png)
-        
+
+      ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/65d47488-3ffd-440e-b655-cb7516b09d13/09e443be-c8fe-42b6-ae88-c99a00d6450a/Untitled.png)
+
 - 텍스트필드 : 사용자가 한 줄의 텍스트를 입력할 수 있는 공간
     - 입력이 가능한 한 줄의 텍스트 필드를 만드는 데 사용
     - 만일 패스워드 필드를 사용하고 싶다면 pannel.add(new JPasswordField(20)); 으로 쓰면 된다.
-    
-    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/65d47488-3ffd-440e-b655-cb7516b09d13/bea041b4-9fe3-446e-a3ae-63d41cf12477/Untitled.png)
-    
+
+  ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/65d47488-3ffd-440e-b655-cb7516b09d13/bea041b4-9fe3-446e-a3ae-63d41cf12477/Untitled.png)
+
 - 버튼 : 클릭되면 어떤 동작을 실행하는 버튼
 
 # 버튼
