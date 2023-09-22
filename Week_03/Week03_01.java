@@ -36,7 +36,7 @@ public class Week03_01  extends JFrame{
         panel.add(btn1);
         panel.add(btn2);
 
-        f.setTitle("�쉶�썝 �벑濡앺븯湲�");
+        f.setTitle("회원관리 시스템");
         f.setSize(300, 200);
         f.setVisible(true);
     }
