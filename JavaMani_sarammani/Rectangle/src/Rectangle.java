@@ -1,6 +1,3 @@
-
-
-//문제 1 : RectangleTest에서 Point, Point를 호출하여 초기값을 부르는 방법은 알겠는데... 이걸 Rectangle에서 어떻게 정의해놓아야하는지 모르겠어요
 public class Rectangle {
 
     private int x1=0;
@@ -8,43 +5,34 @@ public class Rectangle {
     private int x2=0;
     private int y2=0;
 
-
     private int w,h,p,a;
-
-    Point lt = new Point();
-    Point rb = new Point();
+    public Rectangle(){
+        setting();
+    }
     public Rectangle (int x1, int y1 ,int x2, int y2) {
         this.x1 = x1;
         this.y1 = y1;
         this.x2 = x2;
         this.y2 = y2;
 
+        setting();
+    }
+    public Rectangle (Point lp, Point rp) {
+
+        this.x1 = lp.getX();
+        this.y1 = lp.getY();
+        this.x2 = rp.getX();
+        this.y2 = rp.getY();
+        setting();
+    }
+
+    public void setting(){
         this.w = x2-x1;
         this.h = y2-y1;
 
         this.p = w*2+h*2;
         this.a = w*h;
     }
-    public Rectangle (Point k, Point j) {
-
-        this.x1 = k.getX();
-        this.y1 = k.getY();
-        this.x2 = j.getX();
-        this.y2 = j.getY();
-
-        this.w = x2-x1;
-        this.h = y2-y1;
-
-        this.p = w*2+h*2;
-        this.a = w*h;
-    }
-
-
-    /* 방법이 몇가지가 있냐
-     * 1. x2 -x1
-     * 2. rb.getX() - lt.getX()
-     * 3. this.x2- this.x2
-     * 일단 밑에는 x1,x2로 먹힌다 .. 이건 private 인데도 먹혀 왜냐면 public 처리 해줬고 .. this그럼*/
 
     public int getWidth() {
         return w;
