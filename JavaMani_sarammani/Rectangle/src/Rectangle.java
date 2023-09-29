@@ -9,6 +9,8 @@ public class Rectangle {
     private int y2=0;
 
 
+    private int w,h,p,a;
+
     Point lt = new Point();
     Point rb = new Point();
     public Rectangle (int x1, int y1 ,int x2, int y2) {
@@ -16,15 +18,28 @@ public class Rectangle {
         this.y1 = y1;
         this.x2 = x2;
         this.y2 = y2;
+
+        this.w = x2-x1;
+        this.h = y2-y1;
+
+        this.p = w*2+h*2;
+        this.a = w*h;
     }
     public Rectangle (Point k, Point j) {
+
         this.x1 = k.getX();
         this.y1 = k.getY();
         this.x2 = j.getX();
         this.y2 = j.getY();
+
+        this.w = x2-x1;
+        this.h = y2-y1;
+
+        this.p = w*2+h*2;
+        this.a = w*h;
     }
 
-    private int w,h,p,a;
+
     /* 방법이 몇가지가 있냐
      * 1. x2 -x1
      * 2. rb.getX() - lt.getX()
@@ -32,22 +47,18 @@ public class Rectangle {
      * 일단 밑에는 x1,x2로 먹힌다 .. 이건 private 인데도 먹혀 왜냐면 public 처리 해줬고 .. this그럼*/
 
     public int getWidth() {
-        w = x2-x1;
         return w;
     }
 
     public int getHeight() {
-        h = this.y2 - this.y1;
         return h;
     }
 
     public int getPerimeter() {
-        p = w*2+h*2;
         return p;
     }
 
     public int getArea() {
-        a = w*h;
         return a;
     }
 
