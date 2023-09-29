@@ -1,20 +1,27 @@
 
+
+//문제 1 : RectangleTest에서 Point, Point를 호출하여 초기값을 부르는 방법은 알겠는데... 이걸 Rectangle에서 어떻게 정의해놓아야하는지 모르겠어요
 public class Rectangle {
+
+    private int x1=0;
+    private int y1=0;
+    private int x2=0;
+    private int y2=0;
+
+
     Point lt = new Point();
     Point rb = new Point();
-
-    private int x1;
-    private int y1;
-    private int x2;
-    private int y2;
-
-
-
     public Rectangle (int x1, int y1 ,int x2, int y2) {
         this.x1 = x1;
         this.y1 = y1;
         this.x2 = x2;
         this.y2 = y2;
+    }
+    public Rectangle (Point k, Point j) {
+        this.x1 = k.getX();
+        this.y1 = k.getY();
+        this.x2 = j.getX();
+        this.y2 = j.getY();
     }
 
     private int w,h,p,a;
@@ -35,7 +42,7 @@ public class Rectangle {
     }
 
     public int getPerimeter() {
-        p = w+w+h+h;
+        p = w*2+h*2;
         return p;
     }
 
