@@ -8,7 +8,7 @@ public class Main {
 
         // 1차 게임
         어린이1.lose(2);
-        System.out.println("1차 게임 결과\n" + 어린이1.show());
+        System.out.println("1차 게임 결과\n" + 어린이1.show()+" 어린이 2 : "+어린이2.show());
 
         // 2차 게임
         어린이2.lose(7);

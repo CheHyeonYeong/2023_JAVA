@@ -1,6 +1,7 @@
 public class Child {
     private int bizz = 0;
-    private Child os;
+    private Child os; //상대
+
     public Child(int bizz){
         this.bizz=bizz;
     }
@@ -18,11 +19,11 @@ public class Child {
             return;
         }
         this.bizz -=bizz;
-        os.win(bizz);
 
+        os.win(bizz);
     }
     public void win (int bizz){
-        if(bizz <=0){
+        if(bizz <= 0){
             System.out.println("못줘 안줘 뭘해");
             return;
         }
