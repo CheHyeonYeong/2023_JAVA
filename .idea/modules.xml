@@ -8,12 +8,13 @@
       <module fileurl="file://$PROJECT_DIR$/JavaMani_sarammani/JavaMani_sarammani.iml" filepath="$PROJECT_DIR$/JavaMani_sarammani/JavaMani_sarammani.iml" />
       <module fileurl="file://$PROJECT_DIR$/JavaMani_sarammani/Rectangle/Rectangle.iml" filepath="$PROJECT_DIR$/JavaMani_sarammani/Rectangle/Rectangle.iml" />
       <module fileurl="file://$PROJECT_DIR$/Week03/Simple_GUI/Simple_GUI.iml" filepath="$PROJECT_DIR$/Week03/Simple_GUI/Simple_GUI.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Study/Study.iml" filepath="$PROJECT_DIR$/Study/Study.iml" />
       <module fileurl="file://$PROJECT_DIR$/JavaMani_sarammani/TV/TV.iml" filepath="$PROJECT_DIR$/JavaMani_sarammani/TV/TV.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Week02_01_chy/Week02_01_chy.iml" filepath="$PROJECT_DIR$/Week02_01_chy/Week02_01_chy.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Week02_02_chy/Week02_02_chy.iml" filepath="$PROJECT_DIR$/Week02_02_chy/Week02_02_chy.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Week02_03_chy/Week02_03_chy.iml" filepath="$PROJECT_DIR$/Week02_03_chy/Week02_03_chy.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Week02_04_chy/Week02_04_chy.iml" filepath="$PROJECT_DIR$/Week02_04_chy/Week02_04_chy.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Week02_Interface/Week02_Interface.iml" filepath="$PROJECT_DIR$/Week02_Interface/Week02_Interface.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Week02/Week02_01_chy/Week02_01_chy.iml" filepath="$PROJECT_DIR$/Week02/Week02_01_chy/Week02_01_chy.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Week02/Week02_02_chy/Week02_02_chy.iml" filepath="$PROJECT_DIR$/Week02/Week02_02_chy/Week02_02_chy.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Week02/Week02_03_chy/Week02_03_chy.iml" filepath="$PROJECT_DIR$/Week02/Week02_03_chy/Week02_03_chy.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Week02/Week02_04_chy/Week02_04_chy.iml" filepath="$PROJECT_DIR$/Week02/Week02_04_chy/Week02_04_chy.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Week02/Week02_Interface/Week02_Interface.iml" filepath="$PROJECT_DIR$/Week02/Week02_Interface/Week02_Interface.iml" />
       <module fileurl="file://$PROJECT_DIR$/Week03/Week03.iml" filepath="$PROJECT_DIR$/Week03/Week03.iml" />
       <module fileurl="file://$PROJECT_DIR$/Week03/Week03_01/Week03_01.iml" filepath="$PROJECT_DIR$/Week03/Week03_01/Week03_01.iml" />
     </modules>
