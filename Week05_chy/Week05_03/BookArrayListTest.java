@@ -26,10 +26,8 @@ public class BookArrayListTest {
 
         System.out.print("도서를 추가할 위치를 입력");
         int insertIndex = scanner.nextInt();
-
         System.out.print("책 ID 입력 : ");
         int bookId = scanner.nextInt();
-
         System.out.print("책 제목 입력 : ");
         String title = scanner.nextLine();
 
