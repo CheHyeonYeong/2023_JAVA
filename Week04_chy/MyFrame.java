@@ -1,4 +1,4 @@
-package Week_04_chy;
+package Week04_chy;
 
 import java.awt.EventQueue;
 import java.util.ArrayList;

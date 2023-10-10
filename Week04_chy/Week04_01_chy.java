@@ -1,4 +1,4 @@
-package Week_04_chy;
+package Week04_chy;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

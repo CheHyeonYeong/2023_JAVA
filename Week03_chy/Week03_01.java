@@ -1,7 +1,6 @@
-package Week_03;
+package Week03_chy;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class Week03_01  extends JFrame{
     public Week03_01() {

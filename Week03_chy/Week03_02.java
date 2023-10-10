@@ -1,7 +1,6 @@
-package Week_03;
+package Week03_chy;
 
 import javax.swing.*;
-import java.awt.*;
 
 //마일을 입력하고 변환 버튼을 누르면 마일이 킬로미터에 변환되어 표시되는 프로그램
 //k=t*1.609344

@@ -1,7 +1,7 @@
-package Week_04_chy;
+package Week04_chy;
 
 import javax.swing.*;
-import java.awt.*;
+
 //왜 안뜨지???
 public class Week04_03_chy extends JFrame {
         public Week04_03_chy() {

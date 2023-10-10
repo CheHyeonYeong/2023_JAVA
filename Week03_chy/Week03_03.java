@@ -1,10 +1,6 @@
-package Week_03;
-
-import com.sun.tools.javac.Main;
+package Week03_chy;
 
 import javax.swing.*;
-import javax.swing.plaf.basic.BasicOptionPaneUI;
-import javax.swing.plaf.basic.BasicOptionPaneUI.ButtonActionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -30,7 +26,7 @@ public class Week03_03 extends JFrame {
         add(panel);
 
 
-        ImageIcon icon = new ImageIcon("Week_03/5899542.png");
+        ImageIcon icon = new ImageIcon("Week03_chy/5899542.png");
         btn.setIcon(icon);
 
 
