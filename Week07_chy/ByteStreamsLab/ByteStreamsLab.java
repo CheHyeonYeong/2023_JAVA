@@ -22,7 +22,5 @@ public class ByteStreamsLab {
             }
         }
         System.out.println(inputFileName +"을 "+outputFileName+"로 복사하였습니다.");
-
-
     }
 }
