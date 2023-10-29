@@ -30,7 +30,6 @@ public class Test {
 
         //번호를 입력 받아서 그 번호에 해당되는 전화번호를 출력하는 프로그램을 작성
 
-
         BufferedReader in1 = new BufferedReader(new FileReader("user.txt"));
         String line;
 

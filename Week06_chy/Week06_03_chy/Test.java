@@ -20,7 +20,6 @@ public class Test {
                 .map(Food::getName)
                 .collect(Collectors.toList());
         System.out.println(sublist);
-
     }
 }
 
