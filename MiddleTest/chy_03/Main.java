@@ -6,7 +6,8 @@ import java.awt.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.Scanner;
-
+import java.util.Arrays;
+import java.util.List;
 public class Main {
     public static void main(String[] args) {
 
@@ -20,6 +21,14 @@ public class Main {
                 }
             }
         });
+
+        GradeBook book = new GradeBook();
+        List<Integer> list = Arrays.asList(1, 2, 3, 4, 5);
+
+        book.avg(list);
+        book.search(111);
+        book.show();
+
 
 
 

@@ -39,7 +39,7 @@ public class GradeBook extends Student{
 
     }
     public void show(){
-        System.out.println(Student.map());
+        System.out.println(Student.map.foreach());
 
     }
 
