@@ -1,5 +1,5 @@
 package MiddleTest.chy_03;
-
+/*
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.IntSummaryStatistics;
@@ -18,7 +18,7 @@ public class GradeBook extends Student{
         System.out.println("전체 학생은 총 "+list.stream().count()+"명이고, 학생들의 전체 평균 점수는 "+avg +"점입니다.");
     }
     public void search(int num){
-        BufferedReader in1 = new BufferedReader(new FileReader("user.txt"));
+        //BufferedReader in1 = new BufferedReader(new FileReader("user.txt"));
         String line;
 
         String search;
@@ -39,8 +39,9 @@ public class GradeBook extends Student{
 
     }
     public void show(){
-        System.out.println(Student.map.foreach());
+       // System.out.println(Student.map.foreach());
 
     }
 
 }
+*/
