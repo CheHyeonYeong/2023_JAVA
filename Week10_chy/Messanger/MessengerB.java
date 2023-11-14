@@ -1,7 +1,5 @@
 package Week10_chy.Messanger;
 
-import MiddleTest.chy_01.MyFrame;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -11,15 +9,15 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 
-public class MessengerA {
+public class MessengerB {
     protected JTextField textField;
     protected JTextArea textArea;
     DatagramSocket socket;
     DatagramPacket packet;
     InetAddress address = null;
-    final int myPort = 5000; // 수신용 포트 번호
-    final int otherPort = 6000; // 송신용 포트 번호
-    public MessengerA() throws IOException {
+    final int myPort = 6000; // 수신용 포트 번호
+    final int otherPort = 5000; // 송신용 포트 번호
+    public MessengerB() throws IOException {
         MyFrame f=new MyFrame();
         address = InetAddress.getByName("127.0.0.1");
         socket = new DatagramSocket(myPort);
@@ -70,7 +68,7 @@ public class MessengerA {
         }
     }
     public static void main(String[] args) throws IOException {
-        MessengerA m = new MessengerA();
+        MessengerB m = new MessengerB();
         m.process();
     }
 }
