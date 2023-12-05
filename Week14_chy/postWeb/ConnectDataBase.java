@@ -30,25 +30,38 @@ public class ConnectDataBase {
         Connection con = makeConnection();
 
         try{
+            String sql = ""+
+                    "INSERT INTO boards (btitle,bcontent,bwriter,bdate,bfilename,bfiledata) " +
+                    "values(?,?,?,now(),?,?)";
 
-            //대개변수화된 SQL문 작성
-            String sql = "DELETE FROM boards WHERE bwriter =? ";
 
-//PreparedStatement 얼기 및 값 지정
-            PreparedStatement pstmt = con.prepareStatement (sql) ;
-            pstmt.setString (1, "winter") ;
+            PreparedStatement pstmt = con.prepareStatement (sql, new String[] {"bno"});
+            pstmt.setString(1, "눈오는 날") ;
+            pstmt.setString(2, "함박눈이 내려요. ") ;
+            pstmt.setString(3, "winter");
+            pstmt.setString(4, "snow.jpg") ;
 
-            pstmt.close();
             // FileInputStream을 사용하여 이미지 데이터를 BLOB에 설정
             try {
                 // FileInputStream을 사용하여 이미지 데이터를 BLOB에 설정
-                pstmt.setBlob(4, new FileInputStream("snowman.jpg") );
+                pstmt.setBlob(5, new FileInputStream("snow.jpg") );
             } catch (FileNotFoundException e) {
-                System.out.println("파일을 찾을 수 없습니다.");
+                System.out.println("파일을 찾을 수 없습니다. ");
                 e.printStackTrace();
             }
+            //SQL문 실행
+            int rows = pstmt.executeUpdate();
+            System. out.println ("저장된 행 수: " + rows);
+            if(rows == 1) {
+                ResultSet rs = pstmt.getGeneratedKeys();
+                if (rs.next ()) {
+                    int bno = rs.getInt (1) ;
+                    System.out.println("저장된 bno: " + bno);
 
-                pstmt.setInt (5, 1); //WHERE bno=14
+                }
+                rs.close ();}
+            //PreparedStatement 달기
+            pstmt.close ();
 
         }catch (SQLException e){
             e.printStackTrace();
