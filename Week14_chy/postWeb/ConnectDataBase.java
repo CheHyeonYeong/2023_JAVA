@@ -32,21 +32,13 @@ public class ConnectDataBase {
         try{
 
             //대개변수화된 SQL문 작성
-            String sql = new StringBuilder ()
-                    . append ("UPDATE boards SET ")
-                    . append ("btitle =? , ")
-                    . append ("bcontent =? , ")
-                    . append ("bfilename =? , ")
-                    . append ("bfiledata =? ")
-                    . append ("WHERE bno =? ")
-                    . toString ();
+            String sql = "DELETE FROM boards WHERE bwriter =? ";
 
-            //PreparedStatement 얼기 및 값 지정
+//PreparedStatement 얼기 및 값 지정
             PreparedStatement pstmt = con.prepareStatement (sql) ;
-            pstmt.setString (1, "눈사람");
-            pstmt.setString (2, "눈으로 만든 사람");
-            pstmt.setString (3, "snowman.jpg") ;
+            pstmt.setString (1, "winter") ;
 
+            pstmt.close();
             // FileInputStream을 사용하여 이미지 데이터를 BLOB에 설정
             try {
                 // FileInputStream을 사용하여 이미지 데이터를 BLOB에 설정
