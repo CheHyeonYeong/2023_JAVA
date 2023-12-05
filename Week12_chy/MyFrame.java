@@ -143,8 +143,8 @@ public class MyFrame extends JFrame {
 
     public class ConnectDatabase{
         public static void main(String[] args) throws SQLException{
+
             new MyFrame();
         }
     }
-
 }
