@@ -1,5 +1,7 @@
 package Week14_chy.postWeb;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.sql.*;
 
 public class ConnectDataBase {
@@ -29,21 +31,37 @@ public class ConnectDataBase {
 
         try{
             String sql = ""+
-                    "INSERT INTO users (userid, username, userpassword, userage, useremail) " +
+                    "INSERT INTO boards (bno,btitle,bcontent,bwriter,bdate,bfilename,bfiledata) " +
                     "values(?,?,?,?,?)";
 
 
-            PreparedStatement pstm = con.prepareStatement(sql);
-            pstm.setString(1,"winter");
-            pstm.setString(2,"한겨울");
-            pstm.setString(3,"12345");
-            pstm.setInt(4,25);
-            pstm.setString(5,"gusdudco6@naver.com");
+            PreparedStatement pstmt = con.prepareStatement (sql, new String[] {"bno"});
+            pstmt.setString(1, "눈오는 날") ;
+            pstmt.setString (2, "함박눈이 내려요. ") ;
+            pstmt.setString (3, "winter");
+            pstmt.setString (4, "snow.jpg") ;
 
-            int row  = pstm.executeUpdate();
-            System.out.println("저장된 행 수 : "+row);
-            pstm.close();
+            // FileInputStream을 사용하여 이미지 데이터를 BLOB에 설정
+            try {
+                // FileInputStream을 사용하여 이미지 데이터를 BLOB에 설정
+                pstmt.setBlob(5, new FileInputStream("snow.jpg") );
+            } catch (FileNotFoundException e) {
+                System.out.println("파일을 찾을 수 없습니다. ");
+                e.printStackTrace();
+            }
+            //SQL문 실행
+            int rows = pstmt. executeUpdate ();
+            System. out.println ("저장된 행 수: " + rows);
+            if(rows == 1) {
+                ResultSet rs = pstmt.getGeneratedKeys ();
+                if (rs.next ()) {
+                    int bno = rs.getInt (1) ;
+                    System.out.println("x8E bno: " + bno);
 
+                }
+                rs.close ();}
+                //PreparedStatement 달기
+                pstmt.close ();
         }catch (SQLException e){
             e.printStackTrace();
         }finally {
