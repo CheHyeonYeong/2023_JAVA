@@ -1,4 +1,4 @@
-package Week14_chy;
+package Week14_chy.Board;
 
 import java.sql.Date;
 import com.mysql.cj.jdbc.Blob;
@@ -41,4 +41,6 @@ public class Board {
     public String getBfilename() {return bfilename;}
 
     public Blob getBfiledata() {return bfiledata;}
+
+
 }

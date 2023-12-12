@@ -1,4 +1,4 @@
-package Week14_chy;
+package Week14_chy.Board;
 
 public class User {
     private String userId;
