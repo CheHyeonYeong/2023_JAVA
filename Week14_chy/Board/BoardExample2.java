@@ -243,7 +243,6 @@ public class BoardExample2 {
 			}
 		}
 
-
 	}
 
 	public void exit() {

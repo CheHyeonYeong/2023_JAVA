@@ -6,6 +6,9 @@ import java.net.*;
 import java.util.*;
 
 public class SpellCheckerServer {
+
+    //- `run` 메서드에서는 서버를 초기화하고 단어 파일(`words.txt`)을 읽어와 서비스를 시작합니다.
+    //- `ServerThread` 내부 클래스를 통해 클라이언트의 연결을 기다리고 각 클라이언트에 대한 서비스를 담당할 `ServiceThread`를 생성합니다.
     private SpellChecker spellChecker;
 
     public SpellCheckerServer() { }
@@ -81,6 +84,9 @@ public class SpellCheckerServer {
 
     // 각 클라이언트를 전담하여 단어를 수신하고 "YES"나 "NO"를 전송하는 스레드
     class ServiceThread extends Thread {
+        //`ServiceThread` 클래스는 각 클라이언트를 전담하여 단어를 수신하고 스펠링을 체크한 결과를 전송하는 역할을 합니다.
+        //클라이언트로부터 단어를 수신하고, `SpellChecker` 클래스를 이용하여 스펠링을 체크한 후 결과를 클라이언트에게 전송합니다.
+
         private Socket socket = null;
         private BufferedReader in = null;
         private BufferedWriter out = null;

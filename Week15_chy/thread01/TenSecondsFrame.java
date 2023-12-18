@@ -24,7 +24,6 @@ public class TenSecondsFrame extends JFrame{
             catch(InterruptedException e) { return; }
             System.out.println("실행 종료");
             getContentPane().setBackground(Color.BLUE);
-
         }
     }
 
