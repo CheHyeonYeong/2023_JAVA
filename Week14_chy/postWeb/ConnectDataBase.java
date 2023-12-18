@@ -35,7 +35,6 @@ public class ConnectDataBase {
                     "INSERT INTO boards (btitle,bcontent,bwriter,bdate,bfilename,bfiledata) " +
                     "values(?,?,?,now(),?,?)";
 
-
             PreparedStatement pstmt = con.prepareStatement (sql, new String[] {"bno"});
             pstmt.setString(1, "눈오는 날") ;
             pstmt.setString(2, "함박눈이 내려요. ") ;

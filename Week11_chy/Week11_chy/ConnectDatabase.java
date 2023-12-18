@@ -1,6 +1,5 @@
-package Week11_chy;
+package Week11_chy.Week11_chy;
 
-import java.awt.*;
 import java.sql.*;
 
 public class ConnectDatabase {
@@ -43,23 +42,6 @@ public class ConnectDatabase {
     }
         public static void main (String arg[]) throws SQLException {
             Connection con = makeConnection();
-            Statement stmt = con.createStatement();
-            //1)검색결과 가져오기
-            ResultSet rs = stmt.executeQuery("Select * From books");
-            while (rs.next()){
-                int id = rs.getInt("book_id");
-                String title = rs.getString("title");
-                System.out.println(id+" "+title);
-
-            }
-
-            addBook("인간은 왜 사는가", "채현영","2021",15000);
-
-            con.close();
-
-            //3) 미리 세팅해서 값 들고오기
-            /*
-            Connection con1 = makeConnection();
 
             String query = "SELECT books.title, books.price" + " FROM books"
                     + " WHERE publisher = ?";
@@ -72,9 +54,11 @@ public class ConnectDatabase {
                 int price = rs1.getInt("price");
                 System.out.println(title + " " + price);
             }
-            con1.close();
-*/
+            con.close();
 
+            addBook("인간은 왜 사는가", "채현영","2021",15000);
+
+            con.close();
 
         }
 

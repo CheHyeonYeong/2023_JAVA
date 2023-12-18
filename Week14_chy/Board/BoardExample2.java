@@ -7,9 +7,10 @@ import java.io.FileNotFoundException;
 import java.sql.*;
 import java.util.Scanner;
 
-//스레드를 사용하지 x -> list 함수 반복 호출
 
-public class BoardExample1 {
+//스레드를 사용하지 0 -> 반복 호출 xxxx
+
+public class BoardExample2 {
 
 	public static Connection makeConnection() {
 		String url = "jdbc:mysql://localhost:3306/boards";
@@ -32,20 +33,18 @@ public class BoardExample1 {
 		return con; // Return null in case of an exception
 	}
 
-		public void list() {
-			System.out.println();
-			System.out.println("[게시물 목록]");
-			System.out.println("-----------------------------------------------------------------------");
-			System.out.printf("%-6s%-12s%-16s%-40s\n", "no", "writer", "date", "title");
-			System.out.println("-----------------------------------------------------------------------");
-			System.out.printf("%-6s%-12s%-16s%-40s \n",
+
+	public void mainMenu(){
+
+		System.out.println();
+		System.out.println("[게시물 목록]");
+		System.out.println("-----------------------------------------------------------------------");
+		System.out.printf("%-6s%-12s%-16s%-40s\n", "no", "writer", "date", "title");
+		System.out.println("-----------------------------------------------------------------------");
+		System.out.printf("%-6s%-12s%-16s%-40s \n",
 				"1", "winter", "2022.01.27", "게시판에 오신 것을 환영합니다.");
 		System.out.printf("%-6s%-12s%-16s%-40s \n",
 				"2", "winter", "2022.01.27", "올 겨울은 많이 춥습니다.");
-		mainMenu();
-	}
-
-	public void mainMenu() {
 		System.out.println();
 		System.out.println("-----------------------------------------------------------------------");
 		System.out.println("메인메뉴: 1.Create | 2.Read | 3.Clear | 4.Update | 5.Exit");
@@ -54,15 +53,22 @@ public class BoardExample1 {
 		Scanner scanner = new Scanner(System.in);
 
 		// 사용자로부터 숫자 입력 받기
-		String menuNo = scanner.next(); //몰라 시발
+		String menuNo = scanner.next();
 
-		switch (menuNo) {
-			case "1" -> create();
-			case "2" -> read();
-			case "3" -> clear();
-			case "4" -> update();
-			case "5" -> exit();
-		}
+		// Create a separate thread for each menu option
+		Thread menuThread = new Thread(() -> {
+			switch (menuNo) {
+				case "1" -> create();
+				case "2" -> read();
+				case "3" -> clear();
+				case "4" -> update();
+				case "5" -> exit();
+			}
+		});
+
+		// Start the thread
+		menuThread.start();
+
 		// Scanner 객체 닫기 (권장사항)
 		scanner.close();
 	}
@@ -112,7 +118,6 @@ public class BoardExample1 {
 				}catch (SQLException e){}
 			}
 		}
-		list();
 
 	}
 
@@ -157,7 +162,6 @@ public class BoardExample1 {
 				}
 			}
 		}
-		list();
 	}
 
 
@@ -207,7 +211,6 @@ public class BoardExample1 {
 				}
 			}
 		}
-		list();
 	}
 
 
@@ -240,7 +243,6 @@ public class BoardExample1 {
 			}
 		}
 
-		list();
 
 	}
 
@@ -249,8 +251,8 @@ public class BoardExample1 {
 	}
 	public static void main(String[] args) {
 
-		BoardExample1 boardExample = new BoardExample1();
-		boardExample.list();
+		BoardExample2 boardExample = new BoardExample2();
+		boardExample.mainMenu();
 	}
 
 }

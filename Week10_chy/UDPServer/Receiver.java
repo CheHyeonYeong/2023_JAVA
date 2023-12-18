@@ -5,6 +5,7 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 
 public class Receiver {
+    //서버
     public static void main(String[] args) throws IOException {
         byte[] buf = new byte[256];
         DatagramSocket socket = new DatagramSocket(5000); // 포트 번호: 5000

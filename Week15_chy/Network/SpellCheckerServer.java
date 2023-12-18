@@ -19,7 +19,8 @@ public class SpellCheckerServer {
         }
     }
 
-    class ServerThread extends Thread { // 클라이언트의 접속을 받는 서버 스레드
+    class ServerThread extends Thread {
+        // 클라이언트의 접속을 받는 서버 스레드
         @Override
         public void run() {
             ServerSocket listener = null;

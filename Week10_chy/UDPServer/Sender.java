@@ -6,6 +6,8 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 
 public class Sender {
+    
+    //클라이언트
     public static void main(String[] args) throws IOException {
         DatagramSocket socket = null;
         socket = new DatagramSocket();

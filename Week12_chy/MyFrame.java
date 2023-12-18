@@ -1,6 +1,5 @@
 package Week12_chy;
 
-import com.mysql.cj.x.protobuf.MysqlxCrud;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,7 +7,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
 
-import static Week11_chy.ConnectDatabase.makeConnection;
+//form을 이용해서 search 구현
+
 
 public class MyFrame extends JFrame {
     JTextField id, title, publisher, year, price, search;
