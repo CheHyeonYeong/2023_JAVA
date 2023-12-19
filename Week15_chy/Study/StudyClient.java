@@ -8,12 +8,14 @@ import java.net.UnknownHostException;
 import java.util.Scanner;
 
 public class StudyClient {
+
     private Socket socket = null;
     private BufferedReader in = null;
     private BufferedWriter out = null;
 
     public StudyClient() { }
     public void run() {
+        //내가 만들어서 extends -> override xxxx
         System.out.println("Study 클라이언트입니다.");
         setupConnection();  //서버로 계속 전송
         System.out.println("Study 서버에 접속하였습니다.");

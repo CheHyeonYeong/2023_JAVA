@@ -1,4 +1,4 @@
-package Week12_chy;
+package Final_test.num4;
 
 
 import java.awt.GridLayout;
@@ -12,9 +12,10 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 
+
 class MyFrame1 extends JFrame {
 
-    JTextField id, title, publisher, year, price, search;
+    JTextField id, name, tel, dept;
     JButton previousButton, nextButton, InsertButton, deleteButton, searchButton, ClearButton;
     ResultSet rs;
     Statement stmt;
@@ -24,27 +25,22 @@ class MyFrame1 extends JFrame {
         Connection con = makeConnection();
         stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
         //ResultSet이 처음부터 끝까지 이용하면서 데이터를 순회할 수 있다.
-        rs= stmt.executeQuery("SELECT * FROM books");
+        rs= stmt.executeQuery("SELECT * FROM student");
         //모든 데이터를 가져옴
 
         setLayout(new GridLayout(0,2));
         add(new JLabel("ID", JLabel.CENTER));
         add(id = new JTextField());
 
-        add(new JLabel("TITLE", JLabel.CENTER));
-        add(title = new JTextField());
+        add(new JLabel("name", JLabel.CENTER));
+        add(name = new JTextField());
 
-        add(new JLabel("PUBLISHER", JLabel.CENTER));
-        add(publisher = new JTextField());
+        add(new JLabel("tel", JLabel.CENTER));
+        add(tel = new JTextField());
 
-        add(new JLabel("YEAR", JLabel.CENTER));
-        add(year = new JTextField());
+        add(new JLabel("dept", JLabel.CENTER));
+        add(dept = new JTextField());
 
-        add(new JLabel("PRICE", JLabel.CENTER));
-        add(price = new JTextField());
-
-        add(new JLabel("SEARCH", JLabel.CENTER));
-        add(search = new JTextField());
 
         previousButton = new JButton("Previous");
         previousButton.addActionListener(new ActionListener() {
@@ -52,10 +48,9 @@ class MyFrame1 extends JFrame {
                 try {
                     rs.previous();
                     id.setText("" + rs.getInt("book_id"));
-                    title.setText("" + rs.getString("title"));
-                    publisher.setText("" + rs.getString("publisher"));
-                    year.setText("" + rs.getString("year"));
-                    price.setText("" + rs.getInt("price"));
+                    name.setText("" + rs.getString("name"));
+                    tel.setText("" + rs.getString("tel"));
+                    dept.setText("" + rs.getString("dept"));
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -68,10 +63,9 @@ class MyFrame1 extends JFrame {
                 try {
                     rs.next();
                     id.setText("" + rs.getInt("book_id"));
-                    title.setText("" + rs.getString("title"));
-                    publisher.setText("" + rs.getString("publisher"));
-                    year.setText("" + rs.getString("year"));
-                    price.setText("" + rs.getInt("price"));
+                    name.setText("" + rs.getString("name"));
+                    tel.setText("" + rs.getString("tel"));
+                    dept.setText("" + rs.getString("dept"));
 
                 } catch (SQLException e) {
                     e.printStackTrace();
@@ -84,15 +78,14 @@ class MyFrame1 extends JFrame {
         InsertButton.addActionListener(e -> {
             try {
                 // Get values from text fields
-                int bookId = Integer.parseInt(id.getText());
-                String bookTitle = title.getText();
-                String bookPublisher = publisher.getText();
-                String bookYear = year.getText();
-                String bookPrice = price.getText();
+                int stuId = Integer.parseInt(id.getText());
+                String name1 = name.getText();
+                String tel1 = tel.getText();
+                String dept1 = dept.getText();
 
                 // SQL query for insertion
-                String query = "INSERT INTO books (book_id, title, publisher, year, price) " +
-                        "VALUES (" + bookId + ", '" + bookTitle + "', '" + bookPublisher + "', '" + bookYear + "', '" + bookPrice + "')";
+                String query = "INSERT INTO student (stuId, name, tel, dept) " +
+                        "VALUES (" + stuId + ", '" + name1 + "', '" + tel1 + "', '" + dept1 + "', ' )";
 
                 // Execute the query
                 stmt.executeUpdate(query);
@@ -107,15 +100,14 @@ class MyFrame1 extends JFrame {
 
         deleteButton = new JButton("Delete");
         deleteButton.addActionListener(e -> {
-            String searchKeyword = search.getText();
+            String searchKeyword = name.getText();
 
             try {
                 // Get the book_id of the currently displayed record
-                //int currentBookId = rs.getInt("book_id");
-                //만약 bookid로 지우고 싶으면 "Delete from books Where book_id="+currentBookId;
+
 
                 // SQL query for deletion
-                String deleteQuery = "DELETE FROM books WHERE publisher LIKE '%"+searchKeyword+"%'";
+                String deleteQuery = "DELETE FROM student WHERE name LIKE '%"+searchKeyword+"%'";
 
                 // Execute the deletion query
                 stmt.executeUpdate(deleteQuery);
@@ -130,17 +122,16 @@ class MyFrame1 extends JFrame {
 
         searchButton = new JButton("Search");
         searchButton.addActionListener(e -> {
-            String searchKeyword = search.getText();
+            String searchKeyword = name.getText();
             try {
-                String query = "SELECT * FROM books WHERE publisher LIKE '%" + searchKeyword + "%'";
+                String query = "SELECT * FROM student WHERE name LIKE '%" + searchKeyword + "%'";
                 ResultSet searchResult = stmt.executeQuery(query);
 
                 if (searchResult.next()) {
-                    id.setText("" + searchResult.getInt("book_id"));
-                    title.setText("" + searchResult.getString("title"));
-                    publisher.setText("" + searchResult.getString("publisher"));
-                    year.setText("" + searchResult.getString("year"));
-                    price.setText("" + searchResult.getString("price"));
+                    id.setText("" + searchResult.getInt("stuId"));
+                    name.setText("" + searchResult.getString("name"));
+                    tel.setText("" + searchResult.getString("tel"));
+                    dept.setText("" + searchResult.getString("dept"));
                 } else {
                     System.out.println("검색 결과가 없습니다.");
                 }
@@ -164,7 +155,7 @@ class MyFrame1 extends JFrame {
         setVisible(true);
     }
     public static Connection makeConnection(){
-        String url = "jdbc:mysql://localhost:3306/book_db";
+        String url = "jdbc:mysql://localhost:3306/duksung";
 
         String id = "root";
         String password = "";
@@ -183,16 +174,12 @@ class MyFrame1 extends JFrame {
         }
         return con; // Return null in case of an exception
     }
-
-
     private void updateFieldsFromResultSet() throws SQLException {
         id.setText("" + rs.getInt("book_id"));
-        title.setText("" + rs.getString("title"));
-        publisher.setText("" + rs.getString("publisher"));
-        year.setText("" + rs.getString("year"));
-        price.setText("" + rs.getString("price"));
+        name.setText("" + rs.getString("name"));
+        tel.setText("" + rs.getString("tel"));
+        dept.setText("" + rs.getString("dept"));
     }
-
     public static void main(String[] args) throws SQLException {
         MyFrame1 myframe = new MyFrame1();
     }
