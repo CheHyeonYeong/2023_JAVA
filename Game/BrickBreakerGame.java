@@ -12,6 +12,7 @@ import javax.sound.sampled.*;
 import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
+
 public class BrickBreakerGame extends JFrame {
     private static final int WIDTH = 400;
     private static final int HEIGHT = 600;
@@ -23,14 +24,16 @@ public class BrickBreakerGame extends JFrame {
     private static final int NUM_BRICKS = 10;
     private static final int BALL_SPEED = 5;
 
-
-    private int paddleX, score=0;
+    private int paddleX, score = 0;
     private int ballX, ballY, ballSpeedX, ballSpeedY;
     private boolean isGameOver;
 
     private List<Rectangle> bricks;
 
-    private Clip clip;//게임 끝날 때 효과음
+    private Clip clip; // 게임 끝날 때 효과음
+
+
+    private GamePanel gamePanel;
 
     public BrickBreakerGame() {
         setTitle("Brick Breaker Game");
@@ -38,6 +41,14 @@ public class BrickBreakerGame extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
 
+        gamePanel = new GamePanel();
+        add(gamePanel);
+
+        setVisible(true);
+        requestFocus();
+    }
+
+    private void initializeGame() {
         paddleX = WIDTH / 2 - PADDLE_WIDTH / 2;
         ballX = WIDTH / 2 - BALL_SIZE / 2;
         ballY = HEIGHT - PADDLE_HEIGHT - BALL_SIZE;
@@ -46,9 +57,7 @@ public class BrickBreakerGame extends JFrame {
         isGameOver = false;
 
         initializeBricks(); // 초기 벽돌 생성
-        // Load and play the sound
-        loadSound();
-        playSound();
+
         addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {}
@@ -66,18 +75,59 @@ public class BrickBreakerGame extends JFrame {
             public void keyReleased(KeyEvent e) {}
         });
 
-        GameLogicThread gameLogicThread = new GameLogicThread();
-        GraphicsUpdateThread graphicsUpdateThread = new GraphicsUpdateThread();
-
-        gameLogicThread.start();
-        graphicsUpdateThread.start();
-
-        setVisible(true);
-        requestFocus();
+        // Load and play the sound
+        loadSound();
+        playSound();
     }
+
+    public class GamePanel extends JPanel {
+        // Game state variables
+        private int paddleX;
+        private int ballX, ballY, ballSpeedX, ballSpeedY;
+        private boolean isGameOver;
+
+        // Other game-related variables
+
+        public GamePanel() {
+            // Initialize the game state
+            initializeGame();
+
+            // Set focusable and request focus
+            setFocusable(true);
+            requestFocus();
+
+            // Add the key listener
+            addKeyListener(new KeyListener() {
+                @Override
+                public void keyTyped(KeyEvent e) {}
+
+                @Override
+                public void keyPressed(KeyEvent e) {
+                    if (e.getKeyCode() == KeyEvent.VK_LEFT && paddleX > 0) {
+                        paddleX -= PADDLE_WIDTH / 2;
+                    } else if (e.getKeyCode() == KeyEvent.VK_RIGHT && paddleX < WIDTH - PADDLE_WIDTH) {
+                        paddleX += PADDLE_WIDTH / 2;
+                    }
+                }
+
+                @Override
+                public void keyReleased(KeyEvent e) {}
+            });
+
+
+            // Start game threads
+            GameLogicThread gameLogicThread = new GameLogicThread();
+            GraphicsUpdateThread graphicsUpdateThread = new GraphicsUpdateThread();
+
+            gameLogicThread.start();
+            graphicsUpdateThread.start();
+        }
+    }
+
+
+    // 데이터베이스 연결을 수행하는 메서드
     public static Connection makeConnection() {
         String url = "jdbc:mysql://localhost:3306/game";
-
         String id = "root";
         String password = "";
         Connection con = null;
@@ -95,6 +145,8 @@ public class BrickBreakerGame extends JFrame {
         }
         return con; // Return null in case of an exception
     }
+
+    // 게임 오버 시 효과음을 로드하는 메서드
     private void loadSound() {
         try {
             // Load sound file
@@ -110,6 +162,8 @@ public class BrickBreakerGame extends JFrame {
             e.printStackTrace();
         }
     }
+
+    // 게임 오버 시 효과음을 재생하는 메서드
     private void playSound() {
         if (clip != null) {
             clip.setFramePosition(0);  // Rewind to the beginning
@@ -117,6 +171,7 @@ public class BrickBreakerGame extends JFrame {
         }
     }
 
+    // 벽돌 초기화를 수행하는 메서드
     private void initializeBricks() {
         bricks = new CopyOnWriteArrayList<>();
 
@@ -132,6 +187,7 @@ public class BrickBreakerGame extends JFrame {
         }
     }
 
+    // 게임 로직을 처리하는 스레드
     private class GameLogicThread extends Thread {
         @Override
         public void run() {
@@ -147,6 +203,7 @@ public class BrickBreakerGame extends JFrame {
         }
     }
 
+    // 그래픽 업데이트를 수행하는 스레드
     private class GraphicsUpdateThread extends Thread {
         @Override
         public void run() {
@@ -161,6 +218,7 @@ public class BrickBreakerGame extends JFrame {
         }
     }
 
+    // 공의 움직임을 처리하는 메서드
     private void moveBall() {
         ballX += ballSpeedX;
         ballY += ballSpeedY;
@@ -187,31 +245,40 @@ public class BrickBreakerGame extends JFrame {
 
             if (choice == JOptionPane.YES_OPTION) {
                 // 게임 재시작
-                restartGame();
+                GamePanel newGamePanel = new GamePanel();
+
+                // 기존의 GamePanel을 제거하고 새로운 GamePanel을 추가
+                remove(gamePanel);
+                gamePanel = newGamePanel;
+                add(gamePanel);
+
+                // 프레임을 다시 그리기
+                revalidate();
+                repaint();
             } else {
-                // 사용자가 아니오를 선택한 경우, 게임 종료 또는 다른 동작 수행
+                // 사용자가 아니오를 선택한 경우
 
                 Connection con = makeConnection();
-                try{
+                try {
                     Statement stmt = con.createStatement();
                     String query = "SELECT * FROM users ORDER BY score DESC LIMIT 10;";
 
                     // 쿼리 실행
                     ResultSet resultSet = stmt.executeQuery(query);
-                    String finish = ""; int i =1;
+                    String finish = "";
+                    int i = 1;
 
                     // 결과 출력
                     while (resultSet.next()) {
                         String username = resultSet.getString("playerName");
                         int userScore = resultSet.getInt("score");
-                        finish += i+" place playerName: " + username + ", Score: " + userScore+"\n";
+                        finish += i + " place playerName: " + username + ", Score: " + userScore + "\n";
                         i++;
                     }
 
-                    JOptionPane.showMessageDialog(this, finish+"Your Score: " + score+"\nGoodBye");
+                    JOptionPane.showMessageDialog(this, finish + "Your Score: " + score + "\nGoodBye");
 
-
-                }catch (SQLException e){
+                } catch (SQLException e) {
                     System.out.println(e.getMessage());
                     System.exit(0);
                 }
@@ -220,71 +287,69 @@ public class BrickBreakerGame extends JFrame {
             }
         }
     }
-    private void restartGame() {
-        initializeBricks();  // 벽돌 초기화
-        score = 0;     // 점수 초기화
-        isGameOver = false;  // 게임 오버 여부 초기화
-        ballX = WIDTH / 2 - BALL_SIZE / 2;  // 공의 초기 X 위치
-        ballY = HEIGHT - PADDLE_HEIGHT - BALL_SIZE;  // 공의 초기 Y 위치
-        ballSpeedX = BALL_SPEED;  // 공의 초기 X 속도
-        ballSpeedY = -BALL_SPEED;  // 공의 초기 Y 속도
-    }
 
-    //2)레코드에 새로운 값 추가하기
-    public static void saveScore(String playerName, int score){
+    // 게임 재시작을 처리하는 메서드
+
+
+    // 데이터베이스에 점수를 저장하는 메서드
+    public static void saveScore(String playerName, int score) {
         Connection con = makeConnection();
-        try{
+        try {
             Statement stmt = con.createStatement();
             String s = "INSERT INTO users (playerName, score) VALUES ";
-            s+="('"+playerName+"',"+score+")";
+            s += "('" + playerName + "'," + score + ")";
             System.out.println(s);
             int i = stmt.executeUpdate(s);
-            if(i==1) System.out.println("레코드 추가 성공");
+            if (i == 1) System.out.println("레코드 추가 성공");
             else System.out.println("레코드 추가 실패");
-        }catch (SQLException e){
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
             System.exit(0);
         }
     }
+
+    // 충돌을 검사하는 메서드
     private void checkCollisions() {
         Rectangle ballRect = new Rectangle(ballX, ballY, BALL_SIZE, BALL_SIZE);
 
-        // Check collisions with bricks
+        // 벽돌과의 충돌 검사
         for (int i = 0; i < bricks.size(); i++) {
             Rectangle brickRect = bricks.get(i);
             if (brickRect.intersects(ballRect)) {
-                // Handle collision with brick
-                score+=1;
+                // 벽돌과의 충돌 처리
+                score += 1;
                 bricks.remove(i);
                 ballSpeedY = -ballSpeedY;
             }
         }
 
-        // Check collision with paddle
+        // 패들과의 충돌 검사
         Rectangle paddleRect = new Rectangle(paddleX, HEIGHT - PADDLE_HEIGHT, PADDLE_WIDTH, PADDLE_HEIGHT);
         if (paddleRect.intersects(ballRect)) {
             ballSpeedY = -ballSpeedY;
         }
 
-        // Check collision with bottom edge
+        // 하단 벽과의 충돌 검사
         if (ballY > HEIGHT - BALL_SIZE) {
-            // Reset ball position
+            // 공 위치 초기화
             ballX = WIDTH / 2 - BALL_SIZE / 2;
             ballY = HEIGHT - PADDLE_HEIGHT - BALL_SIZE;
             ballSpeedY = -BALL_SPEED;
 
-            // Add a new brick
+            // 새로운 벽돌 추가
             addNewBrick();
         }
     }
 
+    // 새로운 벽돌 추가 메서드
     private void addNewBrick() {
-        // Add a new brick to the list
+        // 벽돌 목록에 새로운 벽돌 추가
         synchronized (bricks) {
             bricks.add(new Rectangle((int) (Math.random() * (WIDTH - BRICK_WIDTH)), 50, BRICK_WIDTH, BRICK_HEIGHT));
         }
     }
 
+    // 그림을 그리는 메서드
     @Override
     public void paint(Graphics g) {
         super.paint(g);
@@ -305,11 +370,12 @@ public class BrickBreakerGame extends JFrame {
         }
     }
 
+    // 메인 메서드
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new BrickBreakerGame();
+                SwingUtilities.invokeLater(() -> new BrickBreakerGame());
             }
         });
     }
