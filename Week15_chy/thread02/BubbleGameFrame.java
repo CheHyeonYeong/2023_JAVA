@@ -9,7 +9,7 @@ public class BubbleGameFrame extends JFrame {
     public BubbleGameFrame() {
         setTitle("버블 게임"); // 프레임 제목 설정
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        GamePanel p = new GamePanel();
+        GamePanel p = new GamePanel();  //실제 동작하는 곳 -> class로 둬서 만듦
         setContentPane(p);
         setSize(300, 300); // 프레임 크기 설정
         setVisible(true);
