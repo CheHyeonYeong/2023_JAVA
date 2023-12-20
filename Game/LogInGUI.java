@@ -67,8 +67,6 @@ public class LogInGUI extends JFrame {
         gbc.gridwidth = 1;
         panel.add(signUpButton, gbc);
 
-
-
         // 로그인 버튼 클릭 이벤트 처리
         loginButton.addActionListener(new ActionListener() {
             @Override
@@ -122,7 +120,7 @@ public class LogInGUI extends JFrame {
                 try {
                     Statement stmt = con.createStatement();
                     String s = "INSERT INTO users (playerName,score, password) VALUES ";
-                    s += "('" + username + "', 0," + password + ")";
+                    s += "('" + username + "', 0, '"+ password + "')";
                     System.out.println(s);
                     int i = stmt.executeUpdate(s);
                     if (i == 1) System.out.println("레코드 추가 성공");
