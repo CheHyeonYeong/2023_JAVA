@@ -1,36 +1,73 @@
 package Game;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.HashMap;
-import java.util.Map;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class LogInGUI extends JFrame {
     private JTextField usernameField;
     private JPasswordField passwordField;
-
-    // 사용자 정보를 저장하는 Map
-    private Map<String, String> users;
+    private Statement stmt;
 
     // 로그인 GUI 생성자
     public LogInGUI() {
         // GUI 창 설정
         setTitle("Login");
-        setSize(300, 150);
+        setSize(300, 200);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
+
+        // Create panel with GridBagLayout
+        JPanel panel = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
 
         // 사용자명 입력 필드
         JLabel usernameLabel = new JLabel("Username:");
         usernameField = new JTextField();
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridwidth = 2;
+        panel.add(usernameLabel, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.gridwidth = 2;
+        panel.add(usernameField, gbc);
 
         // 비밀번호 입력 필드
         JLabel passwordLabel = new JLabel("Password:");
         passwordField = new JPasswordField();
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.gridwidth = 2;
+        panel.add(passwordLabel, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        gbc.gridwidth = 2;
+        panel.add(passwordField, gbc);
 
         // 로그인 버튼
         JButton loginButton = new JButton("Login");
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        gbc.gridwidth = 1;
+        panel.add(loginButton, gbc);
+
+        // 회원가입 버튼
+        JButton signUpButton = new JButton("회원가입");
+        gbc.gridx = 1;
+        gbc.gridy = 4;
+        gbc.gridwidth = 1;
+        panel.add(signUpButton, gbc);
+
+
 
         // 로그인 버튼 클릭 이벤트 처리
         loginButton.addActionListener(new ActionListener() {
@@ -40,43 +77,82 @@ public class LogInGUI extends JFrame {
                 String username = usernameField.getText();
                 String password = new String(passwordField.getPassword());
 
-                // 사용자 인증
-                if (authenticateUser(username, password)) {
-                    // 로그인 성공 시 BrickBreakerGame 호출
-                    SwingUtilities.invokeLater(new Runnable() {
-                        @Override
-                        public void run() {
-                            new BrickBreakerGame();
-                        }
-                    });
+                try {
+                    String query = "SELECT * FROM users WHERE playerName LIKE '%" + username + "%'";
+                    Connection con = makeConnection();
+                    stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
 
-                    // 로그인 창 닫기
-                    dispose();
-                } else {
-                    // 인증 실패 시 메시지 표시
-                    JOptionPane.showMessageDialog(LogInGUI.this, "Login failed. Please check your username and password.");
+                    ResultSet searchResult = stmt.executeQuery(query);
+
+                    if (searchResult.next()) {
+                        String storedPassword = searchResult.getString("password");
+
+                        if (password.equals(storedPassword)) {
+                            // Passwords match, login successful
+                            SwingUtilities.invokeLater(new Runnable() {
+                                @Override
+                                public void run() {
+                                    new BrickBreakerGame(username);
+                                }
+                            });
+                        } else {
+                            // Passwords don't match, login failed
+                            System.out.println("비밀번호가 틀렸습니다.");
+                            // 인증 실패 시 메시지 표시
+                            JOptionPane.showMessageDialog(LogInGUI.this, "Login failed. Please check your username and password.");
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(LogInGUI.this, "없는 아이디 입니다. 회원가입을 진행해주세요.");
+                    }
+                } catch (SQLException event) {
+                    event.printStackTrace();
                 }
             }
         });
 
-        // GUI에 컴포넌트 추가
-        add(usernameLabel);
-        add(usernameField);
-        add(passwordLabel);
-        add(passwordField);
-        add(loginButton);
+        // 회원가입 버튼 클릭 이벤트 처리
+        signUpButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // 사용자명과 비밀번호 입력
+                String username = usernameField.getText();
+                String password = new String(passwordField.getPassword());
 
-        // 사용자 정보 초기화 (예시 사용자 -> DB 구현까지는 x)
-        users = new HashMap<>();
-        users.put("user1", "password1");
+                Connection con = makeConnection();
+                try {
+                    Statement stmt = con.createStatement();
+                    String s = "INSERT INTO users (playerName,score, password) VALUES ";
+                    s += "('" + username + "', 0," + password + ")";
+                    System.out.println(s);
+                    int i = stmt.executeUpdate(s);
+                    if (i == 1) System.out.println("레코드 추가 성공");
+                    else System.out.println("레코드 추가 실패");
+                } catch (SQLException ex) {
+                    System.out.println(ex.getMessage());
+                    System.exit(0);
+                }
+
+            }
+        });
+
+        // Set content pane
+        setContentPane(panel);
     }
 
-    // 사용자 인증 메서드
-    private boolean authenticateUser(String username, String password) {
-        // 저장된 비밀번호 가져오기
-        String storedPassword = users.get(username);
-        // 사용자명이 존재하고 입력 비밀번호와 일치하면 true 반환
-        return storedPassword != null && storedPassword.equals(password);
+    // 데이터베이스 연결을 수행하는 메서드
+    public static Connection makeConnection() {
+        String url = "jdbc:mysql://localhost:3306/game";
+        String id = "root";
+        String password = "";
+        Connection con = null;
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            con = DriverManager.getConnection(url, id, password);
+            return con;
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
+        return con;
     }
 
     // 메인 메서드

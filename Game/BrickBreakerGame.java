@@ -14,6 +14,8 @@ import java.io.File;
 import java.io.IOException;
 
 public class BrickBreakerGame extends JFrame {
+    public static String username; // Add this variable to store the username
+
     private static final int WIDTH = 400;
     private static final int HEIGHT = 600;
     private static final int PADDLE_WIDTH = 60;
@@ -35,7 +37,8 @@ public class BrickBreakerGame extends JFrame {
 
     private GamePanel gamePanel;
 
-    public BrickBreakerGame() {
+    public BrickBreakerGame(String username) {
+        this.username = username; // Save the username
         setTitle("Brick Breaker Game");
         setSize(WIDTH, HEIGHT);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -46,6 +49,10 @@ public class BrickBreakerGame extends JFrame {
 
         setVisible(true);
         requestFocus();
+    }
+    // Getter method for username
+    public String getUsername() {
+        return username;
     }
 
     private void initializeGame() {
@@ -238,10 +245,9 @@ public class BrickBreakerGame extends JFrame {
             isGameOver = true;
             int choice = JOptionPane.showConfirmDialog(this, "Game Over! Do you want to restart?",
                     "Game Over", JOptionPane.YES_NO_OPTION);
-            String playerName = JOptionPane.showInputDialog("Enter your name:");
 
             // Score를 어딘가에 저장 (파일, 데이터베이스 등)
-            saveScore(playerName, score);
+            saveScore(username, score);
 
             if (choice == JOptionPane.YES_OPTION) {
                 // 게임 재시작
@@ -288,18 +294,15 @@ public class BrickBreakerGame extends JFrame {
         }
     }
 
-    // 게임 재시작을 처리하는 메서드
-
-
     // 데이터베이스에 점수를 저장하는 메서드
     public static void saveScore(String playerName, int score) {
         Connection con = makeConnection();
         try {
             Statement stmt = con.createStatement();
-            String s = "INSERT INTO users (playerName, score) VALUES ";
-            s += "('" + playerName + "'," + score + ")";
-            System.out.println(s);
-            int i = stmt.executeUpdate(s);
+            String updateQuery = "UPDATE users SET score = " + score + " WHERE playerName LIKE '%" + playerName + "%'";
+
+            System.out.println(updateQuery);
+            int i = stmt.executeUpdate(updateQuery);
             if (i == 1) System.out.println("레코드 추가 성공");
             else System.out.println("레코드 추가 실패");
         } catch (SQLException e) {
@@ -372,11 +375,7 @@ public class BrickBreakerGame extends JFrame {
 
     // 메인 메서드
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                SwingUtilities.invokeLater(() -> new BrickBreakerGame());
-            }
-        });
+        SwingUtilities.invokeLater(() -> new BrickBreakerGame(username));
+
     }
 }
